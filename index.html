@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Psychic Game</title>
+</head>
+<body>
+
+	<div id="game">
+
+		<h1>PSYCHIC GAME</h1>
+		<hr>
+		<h3>Press any key to start!</h3>		
+
+	</div>
+
+	<br>
+
+	<div id="test">
+
+		
+
+	</div>
+
+	<script type="text/javascript">
+		
+		//created alphabet array
+		var computerChoices=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+		var guessArr = []
+		var wins = 0;
+		var losses = 0;
+		var guesses = 9;
+		var nth_key = 0;
+		var computerLetter = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+		console.log(computerLetter);
+
+
+		document.onkeyup = function(event) {
+			nth_key++
+			var userGuess = event.key;
+			var $game = document.getElementById("game");
+			var $test = document.getElementById("test")
+			/*var userGuess = setTimeout(function(){
+					prompt("Take a guess!");
+				},2000);*/
+
+			//var userGuess = prompt("Take a guess!");
+			//guessArr.push(userGuess);
+
+			if(nth_key===1){
+				alert("Ready? Take your first guess!");
+			}
+			else{
+				guessArr.push(userGuess);
+
+				if (userGuess === computerLetter) {
+					wins++;
+					computerLetter = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+					console.log(computerLetter);
+				}
+				else{
+					losses++;
+					guesses--;
+					if(guesses===0){
+						alert("You lose!");
+						if(confirm("Would you like to play again?")){
+							wins = 0;
+							losses = 0;
+							guesses = 9;
+							guessArr = [];
+							computerLetter = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+							console.log(computerLetter);
+						}
+						else{
+							var show_lose = true;
+						}
+					}
+				}
+			}
+			
+			if (show_lose){
+				$game.innerHTML = "<h1>YOU LOSE</h1>"+
+				"<h5>(Refresh page to play again!)</h5>";
+			}
+			else{
+				$game.innerHTML = "<p><h2>Welcome to the PSYCHIC GAME!</h2></p>"
+				+"<hr>"
+				+"<p><h4>Can you guess which letter I'm thinking of?</h4></p>"
+				+"<p><h5>Hit the key on the keyboard and find out!</p>"
+				+"<hr><br>"
+				+"<p>Wins: " + wins + "</p>"
+				+"<p>Losses:" + losses + " </p>"
+				+"<p>Guesses Left: " + guesses + " </p>"
+				+"Your Guesses So Far: " + guessArr.toString();
+			};
+
+			//console.log(guessArr);
+
+			//var userGuess = prompt("Take a guess!")			
+		};
+
+	</script>
+	
+</body>
+</html>
