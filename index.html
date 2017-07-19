@@ -31,9 +31,11 @@
 		var losses = 0;
 		var guesses = 9;
 		var nth_key = 0;
+		//generate computer letter guess
 		var computerLetter = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 
-		console.log(computerLetter);
+		//uncomment to see answer in console log
+		//console.log(computerLetter);
 
 
 		document.onkeyup = function(event) {
@@ -41,6 +43,8 @@
 			var userGuess = event.key;
 			var $game = document.getElementById("game");
 			var $test = document.getElementById("test")
+
+			//Did not use setTimeout for final but neat little function
 			/*var userGuess = setTimeout(function(){
 					prompt("Take a guess!");
 				},2000);*/
