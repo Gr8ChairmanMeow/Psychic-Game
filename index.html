@@ -30,6 +30,7 @@
 		var wins = 0;
 		var losses = 0;
 		var guesses = 9;
+		//variable used to determine what text to show to user
 		var nth_key = 0;
 		//generate computer letter guess
 		var computerLetter = computerChoices[Math.floor(Math.random() * computerChoices.length)];
@@ -41,6 +42,7 @@
 		document.onkeyup = function(event) {
 			nth_key++
 			var userGuess = event.key;
+			//link IDs from html to a JS variable to manipulate
 			var $game = document.getElementById("game");
 			var $test = document.getElementById("test")
 
@@ -49,44 +51,51 @@
 					prompt("Take a guess!");
 				},2000);*/
 
-			//var userGuess = prompt("Take a guess!");
-			//guessArr.push(userGuess);
-
+			//boolean to see whether to show initial message or continue with the function
 			if(nth_key===1){
 				alert("Ready? Take your first guess!");
 			}
 			else{
+				//expand guess array with each subsequent guess
 				guessArr.push(userGuess);
 
 				if (userGuess === computerLetter) {
 					wins++;
 					computerLetter = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-					console.log(computerLetter);
+
+					//uncomment to see answer in console log
+					//console.log(computerLetter);
 				}
 				else{
 					losses++;
 					guesses--;
+					//boolean to check whether the game has ended
 					if(guesses===0){
 						alert("You lose!");
+						//confirm whether user wants to play again and then reset game if yes
 						if(confirm("Would you like to play again?")){
 							wins = 0;
 							losses = 0;
 							guesses = 9;
 							guessArr = [];
 							computerLetter = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-							console.log(computerLetter);
+
+							//uncomment to see answer in console log
+							//console.log(computerLetter);
 						}
+						//boolean to determine whether to show LOSER page
 						else{
 							var show_lose = true;
 						}
 					}
 				}
 			}
-			
+			//boolean for LOSER page
 			if (show_lose){
 				$game.innerHTML = "<h1>YOU LOSE</h1>"+
 				"<h5>(Refresh page to play again!)</h5>";
 			}
+			//else main game text :-)
 			else{
 				$game.innerHTML = "<p><h2>Welcome to the PSYCHIC GAME!</h2></p>"
 				+"<hr>"
@@ -99,9 +108,6 @@
 				+"Your Guesses So Far: " + guessArr.toString();
 			};
 
-			//console.log(guessArr);
-
-			//var userGuess = prompt("Take a guess!")			
 		};
 
 	</script>
